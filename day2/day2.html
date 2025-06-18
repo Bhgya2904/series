@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>📝 My Notes App</title>
+  <style>
+    * {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: #f3f4f6;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+h2 {
+  color: #333;
+}
+
+.note-app {
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  width: 100%;
+  max-width: 500px;
+}
+
+.input-group {
+  display: flex;
+  gap: 10px;
+}
+
+input[type="text"] {
+  flex: 1;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  outline: none;
+}
+
+button {
+  padding: 12px 20px;
+  font-size: 1rem;
+  background-color: #4f46e5;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+button:hover {
+  background-color: #4338ca;
+}
+
+.notes-container {
+  margin-top: 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.note {
+  position: relative;
+  background: #f9fafb;
+  border-left: 5px solid #4f46e5;
+  padding: 15px 20px;
+  padding-right: 50px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  font-size: 1rem;
+  color: #111827;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  max-width: 100%;
+  min-height: 50px;
+}
+
+.delete-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: transparent;
+  border: none;
+  font-size: 1rem;
+  color: #ef4444;
+  cursor: pointer;
+  padding: 10px;
+}
+
+.delete-btn:hover {
+  color: #b91c1c;
+  padding: 10px;
+}
+
+@media (max-width: 600px) {
+  .note-app {
+    width: 90%;
+  }
+}
+
+  </style>
+</head>
+<body>
+
+  <h2>📝 My Notes</h2>
+
+  <div class="note-app">
+    <div class="input-group">
+      <input type="text" id="noteInput" placeholder="Write a note..." />
+      <button onclick="addNote()">Add</button>
+    </div>
+
+    <div class="notes-container" id="notesContainer"></div>
+  </div>
+
+  <script>
+    let notes = [];
+
+    const input = document.getElementById('noteInput');
+    const container = document.getElementById('notesContainer');
+
+    function addNote() {
+      const text = input.value.trim();
+      if (text === "") return;
+
+      notes.push(text);
+      input.value = "";
+      renderNotes();
+    }
+
+    function deleteNote(index) {
+      notes.splice(index, 1);
+      renderNotes();
+    }
+
+    function renderNotes() {
+      container.innerHTML = "";
+
+      notes.map(function(note, index) {
+        const p = document.createElement('p');
+        p.className = 'note';
+        p.textContent = note;
+
+        const btn = document.createElement('button');
+        btn.textContent = '✖';
+        btn.className = 'delete-btn';
+        btn.onclick = function() {
+          deleteNote(index);
+        };
+
+        p.appendChild(btn);
+        container.appendChild(p);
+      });
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Guess the Number</title>
+  <style>
+    body { font-family: sans-serif; text-align: center; padding: 50px; background-color: #636B2F; }
+    input, button { padding: 10px; margin-left: 20px;display: flex;margin-top: 20px;margin-right: 20px;background-color: #BAC095; }
+    button { cursor: pointer; background-color: #b1b0b0; color: #0d0c0c; display: inline-flex; margin-bottom: 20px; }
+    .log { margin-top: 20px; font-size: 1.2rem; color: aliceblue;}
+    #game{ display: inline-block; border: 2px solid rgb(171, 168, 168); margin: 10px; background-color: #D4DE95;}
+    h1 { color: #f0f0f0; }
+  </style>
+</head>
+<body>
+  <h1>🎲 Guess the Number (1–10)</h1>
+  <div id="game">
+  <input type="number" id="guessInput" placeholder="Enter your guess" />
+  <button id="checkBtn">Check</button>
+  <button id="resetBtn">Reset</button>
+  </div>
+  <div class="log" id="log"></div>
+
+  <script>
+    // const is used because this number shouldn't be reassigned directly
+    let randomNumber = Math.floor(Math.random() * 10) + 1;
+    const log = document.getElementById('log');
+    const input = document.getElementById('guessInput');
+    const checkBtn = document.getElementById('checkBtn');
+    const resetBtn = document.getElementById('resetBtn');
+
+    let attempts = 0; // using let because this will be updated
+
+    checkBtn.addEventListener('click', () => {
+      // value inside function scope
+      const userGuess = Number(input.value);
+
+      attempts++; // we can update attempts since it's declared with let
+
+      if (userGuess === randomNumber) {
+        log.textContent = `🎉 Correct! It took you ${attempts} attempts.`;
+        input.disabled = true;
+        checkBtn.disabled = true;
+      } else if (userGuess < randomNumber) {
+        log.textContent = '📉 Too low! Try again.';
+      } else {
+        log.textContent = '📈 Too high! Try again.';
+      }
+
+       console.log('Inside event scope:', userGuess);// block scoped const
+    });
+    
+
+    resetBtn.addEventListener('click', () => {
+      randomNumber = Math.floor(Math.random() * 10) + 1; // OK because randomNumber is let
+      attempts = 0; // reset attempts
+      log.textContent = '';
+      input.value = '';
+      input.disabled = false;
+      checkBtn.disabled = false;
+
+      console.log('Game reset. New number is:', randomNumber);
+    });
+
+    // Can't do this: const something; // ❌ SyntaxError: Missing initializer
+    // Can't do this: randomNumber = 'hello'; // ⚠️ Type safety but JS allows it (not recommended)
+  </script>
+</body>
+</html>
