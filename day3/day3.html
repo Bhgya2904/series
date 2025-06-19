@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Product Checkout with Arrow Functions</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f2f2f2;
+      padding: 2rem;
+      max-width: 600px;
+      margin: auto;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    h2, h3 {
+      text-align: center;
+      color: #333;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    li {
+      background-color: #fff;
+      margin-bottom: 12px;
+      padding: 10px 14px;
+      border-left: 4px solid #007bff;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    button {
+      display: block;
+      margin: 20px auto;
+      padding: 10px 20px;
+      font-size: 1rem;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    h3 {
+      background-color: #007bff;
+      color: white;
+      padding: 12px;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <h2>🛍️ Select Products</h2>
+  <ul id="product-list"></ul>
+
+  <button id="checkout-btn">Checkout</button>
+
+  <h3>Total Price: ₹<span id="total-price">0</span></h3>
+
+  <script>
+    // 🛒 Step 1: Product list
+    const products = [
+      { name: "Mobile", price: 12000 },
+      { name: "Charger", price: 1000 },
+      { name: "Case", price: 400 },
+      { name: "Power Bank", price: 2000 }
+    ];
+
+    // 🧱 Step 2: Arrow function to create product list item with checkbox
+    const renderProduct = (product, index) => {
+      const li = document.createElement("li");
+
+      const checkbox = document.createElement("input");
+      checkbox.type = "checkbox";
+      checkbox.id = `product-${index}`;
+
+      const label = document.createElement("label");
+      label.htmlFor = checkbox.id;
+      label.textContent = `${product.name} - ₹${product.price}`;
+
+      li.appendChild(checkbox);
+      li.appendChild(label);
+
+      return li;
+    };
+
+    // 🧮 Step 3: Arrow function to calculate total of selected items
+    const calculateSelectedTotal = (products) => {
+      let total = 0;
+
+      products.map((product, index) => {
+        const checkbox = document.getElementById(`product-${index}`);
+        if (checkbox.checked) {
+          total += product.price;
+        }
+      });
+
+      return total;
+    };
+
+    // 🎯 Step 4: Render products with checkboxes
+    const productList = document.getElementById("product-list");
+    products.map((product, index) => {
+      const item = renderProduct(product, index);
+      productList.appendChild(item);
+    });
+
+    // 🛍️ Step 5: Handle checkout
+    const checkoutBtn = document.getElementById("checkout-btn");
+    checkoutBtn.addEventListener("click", () => {
+      const total = calculateSelectedTotal(products);
+      document.getElementById("total-price").textContent = total;
+    });
+  </script>
+</body>
+</html>
