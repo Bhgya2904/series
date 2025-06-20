@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Pet Info Card</title>
+  <style>
+    body {
+      font-family: Arial;
+      background: #f7fafc;
+      text-align: center;
+      padding: 50px;
+    }
+    .cards-container {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 20px;
+    }
+    .card {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      padding: 20px;
+      max-width: 250px;
+      text-align: left;
+    }
+    .btn {
+      padding: 10px 20px;
+      background: #3182ce;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      margin-bottom: 20px;
+      cursor: pointer;
+    }
+    .info {
+      margin: 5px 0;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>🐾 Pet Info Gallery</h2>
+  <button class="btn" id="showBtn" onclick="showAllPets()">Show Pets</button>
+
+  <div class="cards-container" id="petCards"></div>
+
+  <script>
+    const pets = [
+      { name: "Bruno", breed: "Labrador", age: 3, vaccinated: true },
+      { name: "Milo", breed: "Beagle", age: 2, vaccinated: false },
+      { name: "Zoe", breed: "Pug", age: 4, vaccinated: true }
+    ];
+
+    function showAllPets() {
+      const container = document.getElementById("petCards");
+      container.innerHTML = ""; // clear existing
+
+      pets.map(({ name, breed, age, vaccinated }) => {
+        const card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML = `
+          <div class="info">🐶 <strong>Name:</strong> ${name}</div>
+          <div class="info">📍 <strong>Breed:</strong> ${breed}</div>
+          <div class="info">🎂 <strong>Age:</strong> ${age}</div>
+          <div class="info">💊 <strong>Vaccinated:</strong> ${vaccinated ? "Yes" : "No"}</div>
+        `;
+        container.appendChild(card);
+      });
+
+    }
+  </script>
+
+</body>
+</html>
