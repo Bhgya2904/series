@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>User Profile Previewer</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>User Form Previewer 🧾</h1>
+    <form id="profileForm">
+      <input type="text" name="name" placeholder="Name" required />
+      <input type="email" name="email" placeholder="Email" required />
+      <input type="number" name="age" placeholder="Age" required />
+      <input type="text" name="address" placeholder="Address" />
+      <button type="submit">Add Profile</button>
+    </form>
+
+    <div id="userList" class="user-list"></div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
