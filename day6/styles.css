@@ -1,0 +1,41 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #f4f4f4;
+  margin: 0;
+  padding: 20px;
+}
+
+.container {
+  max-width: 600px;
+  margin: auto;
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+h1 {
+  text-align: center;
+}
+
+.controls {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.controls input, .controls select, .controls button {
+  padding: 8px;
+  font-size: 16px;
+  flex: 1;
+}
+
+#output {
+  margin-top: 10px;
+}
+
+.card {
+  background: #e0f7fa;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 6px;
+}
