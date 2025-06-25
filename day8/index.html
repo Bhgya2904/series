@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Debounced Username Check</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 40px;
+    }
+    input {
+      padding: 10px;
+      width: 300px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+    .status {
+      margin-top: 10px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h2>🔐 Check Username Availability</h2>
+  <input type="text" id="username" placeholder="Enter username" />
+  <div id="status" class="status"></div>
+
+  <script>
+    const usernameInput = document.getElementById('username');
+    const statusDiv = document.getElementById('status');
+
+    // Debounce utility
+    function debounce(func, delay) {
+      let timeout;
+      return function (...args) {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => func.apply(this, args), delay);
+      };
+    }
+
+    // Simulated API check (mocked response)
+    function checkUsernameAvailability(username) {
+      // Simulate a delay like an API call
+      statusDiv.textContent = "Checking...";
+      
+      setTimeout(() => {
+        const takenNames = ['admin', 'user123', 'john'];
+        if (takenNames.includes(username.toLowerCase())) {
+          statusDiv.textContent = "❌ Username is taken";
+          statusDiv.style.color = "red";
+        } else {
+          statusDiv.textContent = "✅ Username is available";
+          statusDiv.style.color = "green";
+        }
+      }, 500);
+    }
+
+    const debouncedCheck = debounce((e) => {
+      const value = e.target.value.trim();
+      if (value.length > 2) {
+        checkUsernameAvailability(value);
+      } else {
+        statusDiv.textContent = "Type at least 3 characters";
+        statusDiv.style.color = "gray";
+      }
+    }, 500);
+
+    // Attach event listener
+    usernameInput.addEventListener('input', debouncedCheck);
+  </script>
+</body>
+</html>
