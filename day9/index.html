@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Promise Weather App</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f4f6f8;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    h2 {
+      color: #333;
+    }
+
+    button {
+      padding: 12px 24px;
+      font-size: 16px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 20px;
+      transition: background-color 0.2s ease;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    #output {
+      margin-top: 20px;
+      font-size: 18px;
+      color: #444;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>☁️ Weather Forecast Checker</h2>
+  <button id="checkWeather">Check Weather</button>
+  <p id="output"></p>
+
+  <script>
+    // Step 1: Create a function that returns a Promise
+    const checkWeather = () => {
+      return new Promise((resolve, reject) => {
+        // Simulate delay like a real API (2 seconds)
+        setTimeout(() => {
+          const isSunny = Math.random() > 0.5; // Randomly decide weather
+
+          // Resolve or reject based on condition
+          if (isSunny) {
+            resolve("☀️ It's sunny today!");
+          } else {
+            reject("🌧️ Looks like rain. Carry an umbrella!");
+          }
+        }, 2000);
+      });
+    };
+
+    // Step 2: Add event listener to the button
+    document.getElementById("checkWeather").addEventListener("click", () => {
+      // Show loading message
+      document.getElementById("output").textContent = "Fetching weather... ⏳";
+
+      // Step 3: Use the Promise
+      checkWeather()
+        .then((message) => {
+          // On success
+          document.getElementById("output").textContent = message;
+        })
+        .catch((err) => {
+          // On failure
+          document.getElementById("output").textContent = err;
+        });
+    });
+  </script>
+
+</body>
+</html>
