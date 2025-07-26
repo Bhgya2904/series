@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Live Character Counter</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 2rem;
+      max-width: 600px;
+      margin: auto;
+      background: #f9f9f9;
+    }
+
+    h2 {
+      text-align: center;
+      color: #333;
+    }
+
+    textarea {
+      width: 100%;
+      font-size: 1rem;
+      padding: 1rem;
+      box-sizing: border-box;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      resize: none;
+    }
+
+    #charCount {
+      margin-top: 0.5rem;
+      font-weight: bold;
+      color: #555;
+    }
+
+    #warning {
+      color: red;
+      margin-top: 0.3rem;
+    }
+
+    button {
+      margin-top: 1rem;
+      padding: 0.7rem 1.2rem;
+      font-size: 1rem;
+      border: none;
+      background-color: #007bff;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:disabled {
+      background-color: #aaa;
+      cursor: not-allowed;
+    }
+
+    #output {
+      margin-top: 1.5rem;
+      padding: 1rem;
+      background-color: #e9ffe9;
+      border: 1px solid #c2f0c2;
+      border-radius: 8px;
+      font-size: 1rem;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>📝 Live Character Counter</h2>
+
+  <textarea id="textInput" rows="5" placeholder="Type something here... (max 100 characters)"></textarea>
+  <p id="charCount">Characters: 0 / 100</p>
+  <p id="warning"></p>
+  <button id="submitBtn" disabled>Submit</button>
+
+  <div id="output" style="display:none;"></div>
+
+  <script>
+    const textarea = document.getElementById('textInput');
+    const charCount = document.getElementById('charCount');
+    const warning = document.getElementById('warning');
+    const submitBtn = document.getElementById('submitBtn');
+    const outputDiv = document.getElementById('output');
+    const maxChars = 100;
+
+    // Live character count logic
+    textarea.addEventListener('input', () => {
+      const currentLength = textarea.value.length;
+      charCount.textContent = `Characters: ${currentLength} / ${maxChars}`;
+
+      if (currentLength > maxChars) {
+        warning.textContent = "⚠️ You have exceeded the character limit!";
+        submitBtn.disabled = true;
+      } else {
+        warning.textContent = "";
+        submitBtn.disabled = false;
+      }
+    });
+
+    // Submit button logic
+    submitBtn.addEventListener('click', () => {
+      const userInput = textarea.value.trim();
+      if (userInput.length <= maxChars && userInput.length > 0) {
+        outputDiv.textContent = `✅ Your submitted text: "${userInput}"`;
+        outputDiv.style.display = 'block';
+        textarea.value = "";
+        charCount.textContent = `Characters: 0 / ${maxChars}`;
+        submitBtn.disabled = true;
+      }
+    });
+  </script>
+
+</body>
+</html>
