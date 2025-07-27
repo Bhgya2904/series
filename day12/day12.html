@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Feedback Analyzer</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 600px;
+      margin: 2rem auto;
+      padding: 1rem;
+      background: #f9f9f9;
+    }
+    h2 {
+      text-align: center;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+    li {
+      padding: 6px;
+      background: #e0f7fa;
+      margin: 4px 0;
+      border-radius: 5px;
+    }
+    #average {
+      margin-top: 1rem;
+      font-weight: bold;
+      text-align: center;
+      font-size: 1.2rem;
+      color: #00796b;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>⭐ Feedback Analyzer</h2>
+
+  <ul id="ratingList"></ul>
+  <div id="average"></div>
+
+  <script>
+    const ratings = [5, 4, 4, 3, 5, 2, 1, 5, 4];
+
+    // 1. Count votes for each star (1 to 5)
+    const counts = {
+      1: 0, 2: 0, 3: 0, 4: 0, 5: 0
+    };
+
+    ratings.forEach(rating => {
+      counts[rating]++;
+    });
+
+    // 2. Display each rating count
+    const ratingList = document.getElementById('ratingList');
+
+    Object.entries(counts).forEach(([star, count]) => {
+      const li = document.createElement('li');
+      li.textContent = `⭐ ${star} Star: ${count} vote(s)`;
+      ratingList.appendChild(li);
+    });
+
+    // 3. Calculate average rating
+    const total = ratings.reduce((sum, rate) => sum + rate, 0);
+    const avg = (total / ratings.length).toFixed(1);
+
+    // 4. Show average
+    const avgDiv = document.getElementById('average');
+    avgDiv.textContent = `📊 Average Rating: ${avg} Stars`;
+  </script>
+
+</body>
+</html>
