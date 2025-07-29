@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Hoisting Quiz Game</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 2rem;
+      max-width: 600px;
+      margin: auto;
+      background: #f0f8ff;
+    }
+    .question {
+      background: #fff;
+      padding: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      margin-bottom: 1rem;
+    }
+    button {
+      margin-top: 1rem;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+    }
+    .result {
+      margin-top: 0.5rem;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>🤔 Guess the Output – JS Hoisting Quiz</h2>
+
+  <div class="question" id="q1">
+    <pre>console.log(score);\nvar score = 10;</pre>
+    <label><input type="radio" name="q1" value="A"> A) 10</label><br>
+    <label><input type="radio" name="q1" value="B"> B) undefined</label><br>
+    <label><input type="radio" name="q1" value="C"> C) ReferenceError</label><br>
+    <button onclick="checkAnswer('q1', 'B')">Check</button>
+    <div class="result" id="r1"></div>
+  </div>
+
+  <div class="question" id="q2">
+    <pre>console.log(num);\nlet num = 5;</pre>
+    <label><input type="radio" name="q2" value="A"> A) 5</label><br>
+    <label><input type="radio" name="q2" value="B"> B) undefined</label><br>
+    <label><input type="radio" name="q2" value="C"> C) ReferenceError</label><br>
+    <button onclick="checkAnswer('q2', 'C')">Check</button>
+    <div class="result" id="r2"></div>
+  </div>
+
+  <script>
+    function checkAnswer(qid, correctAnswer) {
+      const options = document.getElementsByName(qid);
+      const result = document.getElementById("r" + qid[1]);
+
+      let selected = null;
+      options.forEach(opt => {
+        if (opt.checked) selected = opt.value;
+      });
+
+      if (!selected) {
+        result.textContent = "❗ Please select an answer.";
+        result.style.color = "orange";
+      } else if (selected === correctAnswer) {
+        result.textContent = "✅ Correct!";
+        result.style.color = "green";
+      } else {
+        result.textContent = `❌ Wrong. Correct answer is (${correctAnswer})`;
+        result.style.color = "red";
+      }
+    }
+  </script>
+
+</body>
+</html>

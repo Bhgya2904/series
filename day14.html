@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>User Signup Form – Truthy/Falsy Demo</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f3f4f6;
+      padding: 2rem;
+      max-width: 500px;
+      margin: auto;
+    }
+
+    h2 {
+      text-align: center;
+      color: #333;
+    }
+
+    form {
+      background: #fff;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+    }
+
+    input {
+      width: 100%;
+      padding: 0.75rem;
+      margin: 0.5rem 0 1rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 1rem;
+    }
+
+    button {
+      width: 100%;
+      padding: 0.75rem;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    .error {
+      color: red;
+      margin-bottom: 1rem;
+      font-weight: bold;
+    }
+
+    .success {
+      color: green;
+      text-align: center;
+      margin-top: 1rem;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>🧾 Signup Form</h2>
+
+  <form id="signupForm" onsubmit="validateForm(event)">
+    <div id="error" class="error"></div>
+
+    <input type="text" id="name" placeholder="Enter your name" />
+    <input type="email" id="email" placeholder="Enter your email" />
+    <input type="password" id="password" placeholder="Enter your password" />
+
+    <button type="submit">Submit</button>
+  </form>
+
+  <div id="success" class="success"></div>
+
+  <script>
+    function validateForm(e) {
+      e.preventDefault(); // prevent form reload
+
+      const name = document.getElementById("name").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value;
+
+      const errorDiv = document.getElementById("error");
+      const successDiv = document.getElementById("success");
+
+      // Use falsy check: "", null, undefined => all handled by (!value)
+      if (!name || !email || !password) {
+        errorDiv.textContent = "All fields are required!";
+        successDiv.textContent = "";
+        return;
+      }
+
+      // If all are truthy
+      errorDiv.textContent = "";
+      successDiv.textContent = `✅ Welcome, ${name}! Your form has been submitted.`;
+
+      // Optionally reset form
+      document.getElementById("signupForm").reset();
+    }
+  </script>
+
+</body>
+</html>
