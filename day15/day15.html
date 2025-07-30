@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Theme Toggle – Ternary & Short-Circuit</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 2rem;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .container {
+      max-width: 500px;
+      margin: auto;
+      text-align: center;
+    }
+
+    button {
+      margin-top: 2rem;
+      padding: 0.7rem 1.5rem;
+      font-size: 1rem;
+      cursor: pointer;
+      border: none;
+      border-radius: 5px;
+    }
+
+    .light {
+      background: #f5f5f5;
+      color: #222;
+    }
+
+    .dark {
+      background: #1e1e1e;
+      color: #f1f1f1;
+    }
+
+    .light button {
+      background: #222;
+      color: white;
+    }
+
+    .dark button {
+      background: #f1f1f1;
+      color: #222;
+    }
+  </style>
+</head>
+<body class="light">
+
+  <div class="container">
+    <h1 id="heading">🌞 Light Mode</h1>
+    <p>Click below to toggle the theme</p>
+    <button onclick="toggleTheme()">Toggle Theme</button>
+  </div>
+
+  <script>
+    let isDarkMode = false;
+
+    function toggleTheme() {
+      isDarkMode = !isDarkMode;
+
+      // Ternary to change body class
+      document.body.className = isDarkMode ? "dark" : "light";
+
+      // Ternary to update heading
+      const heading = document.getElementById("heading");
+      heading.textContent = isDarkMode ? "🌙 Dark Mode" : "🌞 Light Mode";
+
+      // Optional: short-circuiting to log user message
+      isDarkMode && console.log("User switched to Dark Mode");
+      !isDarkMode && console.log("User switched to Light Mode");
+    }
+  </script>
+
+</body>
+</html>
