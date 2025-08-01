@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Blog Preview</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #eef;
+      padding: 2rem;
+      display: flex;
+      justify-content: center;
+    }
+
+    .blog {
+      background: white;
+      padding: 1.5rem;
+      max-width: 500px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    img {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: 1.5rem;
+    }
+
+    .meta {
+      font-size: 0.9rem;
+      color: #555;
+      margin-bottom: 1rem;
+    }
+
+    p {
+      font-size: 1rem;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="blog">
+    <img id="postImage" src="" alt="Post Image" />
+    <h2 id="postTitle">Title</h2>
+    <div class="meta">
+      <span id="author">Author</span> · <span id="category">Category</span>
+    </div>
+    <p id="summary">Summary here...</p>
+  </div>
+
+  <script>
+    // Simulated API response
+    const post = {
+      title: "Mastering JavaScript Optional Chaining",
+      image: "https://example.com/post.jpg", // image missing
+      author: {
+        name: "Bhagaysri"
+      },
+      // category is missing
+      summary: "Learn how to safely access deeply nested properties without crashing your app."
+    };
+
+    // Apply optional chaining and fallbacks
+    document.getElementById("postTitle").textContent = post?.title || "Untitled Post";
+    document.getElementById("author").textContent = post?.author?.name || "Anonymous";
+    document.getElementById("category").textContent = post?.category || "General";
+    document.getElementById("summary").textContent = post?.summary || "No summary available.";
+
+    const postImage = document.getElementById("postImage");
+    const imageUrl = post?.image || "https://via.placeholder.com/500x300?text=No+Image";
+    postImage.src = imageUrl;
+    postImage.alt = post?.title || "Blog Image";
+  </script>
+
+</body>
+</html>
